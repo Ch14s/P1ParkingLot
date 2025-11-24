@@ -1,7 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+#include "menu.h"
+#include "vehicle.h"
 
-void displayMenu(){
-    char Command[256];
+vehicle registerCar();
+
+void displayMenu()
+{
+    
+
+    char choice = '\0';
+    printf("Main menu: ");
+    printf("\n(R)  -  Register car ");
+    printf("\n(F)  -  Find Parking");
+    printf("\n(E)  -  Leave Parking");
+    if (scanf("%c", &choice) == 0)
+    {
+        printf("Incorrect input");
+        return;
+    }
+    switch (choice)
+    {
+    case 'R':
+    case 'r':
+        registerCar();
+        break;
+    case 'F':
+    case 'f':
+        // FindEmptyParkingSpace();
+
+    default:
+        break;
+    }
+    return;
+}
+vehicle registerCar()
+{
+    char licensePlate[8];
+    char size;
+    int isElectric;
+    int isHandicapped;
+    printf("\nPlease enter license plate > ");
+    scanf("%s",licensePlate);
+    printf("\nPlease enter vehicle size [s]/[m]/[l] > ");
+    scanf("%s",&size);
+    printf("\nDo you have any accessibility needs [y]/[n] > ");
+    scanf("%d",&isHandicapped);
+    printf("\nIs your vehicle electric [y]/[n] > ");
+    scanf("%d",&isElectric);
+
+    
+
 }
