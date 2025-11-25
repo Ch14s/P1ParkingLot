@@ -5,7 +5,7 @@ typedef enum {
     small,
     medium,
     large
-}VechileType;
+}VehicleType;
 
 /**
  * @brief Structure of a car 
@@ -14,10 +14,10 @@ typedef enum {
 typedef struct
 {
     char licensePlate[8];
-    VechileType vehicleType;
+    VehicleType vehicleType;
     int isElectric;
     int isDisabled;
-}vehicle;
+}Vehicle;
 
 
 #endif // VEHICLE
