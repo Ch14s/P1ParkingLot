@@ -55,3 +55,4 @@ Vehicle registerCar()
     return generateVehicle(licensePlate,size,isElectric,isHandicapped);
     
 }
+
