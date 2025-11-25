@@ -1,6 +1,12 @@
 #if !defined(MENU)
 #define MENU
-
-void displayMenu();
+#include <stdbool.h>
+/**
+ * @brief Displays the TUI
+ * 
+ * @param currentVehicle The vehicle currently being modified
+ * @param exitFlag bool If true the program will exit
+ */
+void displayMenu(Vehicle* currentVehicle, bool exitFlag);
 
 #endif // MENU

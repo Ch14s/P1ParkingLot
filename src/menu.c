@@ -7,38 +7,38 @@
 
 Vehicle registerCar();
 
-
-void displayMenu()
+void displayMenu(Vehicle* currentVehicle, bool exitFlag)
 {
-    
-
     char choice = '\0';
     printf("Main menu: ");
     printf("\n(R)  -  Register car ");
-    printf("\n(F)  -  Find Parking");
+    printf("\n(F)  -  Find Parking" );
     printf("\n(E)  -  Leave Parking");
     if (scanf("%c", &choice) == 0)
     {
-        printf("Incorrect input");
+        printf("Error reading input");
         return;
     }
     switch (choice)
     {
     case 'R':
     case 'r':
-        registerCar();
+        *currentVehicle = registerCar();
         break;
     case 'F':
     case 'f':
+        
         // FindEmptyParkingSpace();
 
     default:
+        printf("Invalid input");
         break;
     }
     return;
 }
 Vehicle registerCar()
 {
+    //request informatiion about the car
     char licensePlate[8];
     char size;
     int isElectric;
@@ -46,13 +46,14 @@ Vehicle registerCar()
     printf("\nPlease enter license plate > ");
     scanf("%s",licensePlate);
     printf("\nPlease enter vehicle size [s]/[m]/[l] > ");
-    scanf("%s",&size);
+    scanf("%c",&size);
     printf("\nDo you have any accessibility needs [y]/[n] > ");
     scanf("%d",&isHandicapped);
     printf("\nIs your vehicle electric [y]/[n] > ");
     scanf("%d",&isElectric);
 
+    VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
+    return generateVehicle(licensePlate,size,isElectric,isHandicapped);
     
-
 }
 
