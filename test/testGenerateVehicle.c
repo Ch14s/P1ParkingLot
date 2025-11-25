@@ -4,7 +4,8 @@
 #include <stdio.h>
 int main(){
     char lp[8]="as74744";
-    Vehicle v1 = {.isDisabled = true, .isElectric = false, .licensePlate=lp, .vehicleType = small};
+    Vehicle v1 = {.isDisabled = true, .isElectric = false, .vehicleType = small};
+    strcpy(v1.licensePlate, lp);
     Vehicle v2 =generateVehicle(lp,small,false,true);
     assert(v1.isDisabled==v2.isDisabled);
     assert(v1.isElectric==v2.isElectric);
