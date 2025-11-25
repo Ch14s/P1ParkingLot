@@ -4,5 +4,7 @@
 int main(int argc, char** argv){
     printf("Parking Management system! \n");
     displayMenu();
-    
+    int check = 1;
 }
+
+// virker det her?
