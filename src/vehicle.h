@@ -20,7 +20,15 @@ typedef struct
     int isDisabled;
 }Vehicle;
 
-
+/**
+ * @brief Generates Vehicle 
+ * 
+ * @param licensePLate  char[8] Lisence plate of Vehicle
+ * @param vehicleType  enum VehicleType Type of vehcile 
+ * @param isElectric  Bool whether the vechile is electric 
+ * @param isHandicapped  Boolwhether the vechile is handicapped
+ * @return Vehicle 
+ */
 Vehicle generateVehicle(char licensePLate[8],VechileType vehicleType, bool isElectric, bool isHandicapped);
 
 #endif // VEHICLE
