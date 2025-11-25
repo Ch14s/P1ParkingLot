@@ -1,6 +1,7 @@
 #if !defined(MENU)
 #define MENU
 #include <stdbool.h>
+#include "vehicle.h"
 /**
  * @brief Displays the TUI
  * 

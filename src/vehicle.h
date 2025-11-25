@@ -29,6 +29,6 @@ typedef struct
  * @param isHandicapped  Boolwhether the vechile is handicapped
  * @return Vehicle 
  */
-Vehicle generateVehicle(char licensePLate[8],VechileType vehicleType, bool isElectric, bool isHandicapped);
+Vehicle generateVehicle(char licensePLate[8],VehicleType vehicleType, bool isElectric, bool isHandicapped);
 
 #endif // VEHICLE
