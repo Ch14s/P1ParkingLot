@@ -5,7 +5,7 @@
 #include "menu.h"
 #include "vehicle.h"
 
-vehicle registerCar();
+Vehicle registerCar();
 
 
 void displayMenu()
@@ -37,7 +37,7 @@ void displayMenu()
     }
     return;
 }
-vehicle registerCar()
+Vehicle registerCar()
 {
     char licensePlate[8];
     char size;

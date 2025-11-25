@@ -9,9 +9,9 @@ typedef struct {
     int isElectric;
     int isDisable;
 
-} parkingSpot;
+} ParkingSpot;
 
-parkingSpot spaces[PARKING_SPOTS];
+ParkingSpot spaces[PARKING_SPOTS];
 
 
 
