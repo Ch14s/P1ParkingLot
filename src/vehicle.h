@@ -1,5 +1,6 @@
 #if !defined(VEHICLE)
 #define VEHICLE
+#include <stdbool.h>
 
 typedef enum {
     small,
@@ -17,7 +18,9 @@ typedef struct
     VechileType vehicleType;
     int isElectric;
     int isDisabled;
-}vehicle;
+}Vehicle;
 
+
+Vehicle generateVehicle(char licensePLate[8],VechileType vehicleType, bool isElectric, bool isHandicapped);
 
 #endif // VEHICLE

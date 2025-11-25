@@ -5,20 +5,18 @@
 #include "menu.h"
 #include "vehicle.h"
 
-vehicle registerCar();
+Vehicle registerCar();
 
 void displayMenu()
 {
-    
-
     char choice = '\0';
     printf("Main menu: ");
     printf("\n(R)  -  Register car ");
-    printf("\n(F)  -  Find Parking");
+    printf("\n(F)  -  Find Parking" );
     printf("\n(E)  -  Leave Parking");
     if (scanf("%c", &choice) == 0)
     {
-        printf("Incorrect input");
+        printf("Error reading input");
         return;
     }
     switch (choice)
@@ -29,15 +27,18 @@ void displayMenu()
         break;
     case 'F':
     case 'f':
+        
         // FindEmptyParkingSpace();
 
     default:
+        printf("Invalid input");
         break;
     }
     return;
 }
-vehicle registerCar()
+Vehicle registerCar()
 {
+    //request informatiion about the car
     char licensePlate[8];
     char size;
     int isElectric;
@@ -51,6 +52,6 @@ vehicle registerCar()
     printf("\nIs your vehicle electric [y]/[n] > ");
     scanf("%d",&isElectric);
 
+    return generateVehicle(licensePlate,size,isElectric,isHandicapped);
     
-
 }
