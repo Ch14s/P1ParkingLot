@@ -58,3 +58,4 @@ build/
 .vscode/
 out/
 bin/
+test/test.c
