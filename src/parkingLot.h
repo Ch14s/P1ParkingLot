@@ -11,8 +11,9 @@ typedef struct {
 
 } ParkingSpot;
 
-ParkingSpot spaces[PARKING_SPOTS];
-
+extern ParkingSpot spaces[PARKING_SPOTS];
+void createParkingLot();
+void placeCar(Vehicle car, ParkingSpot spaces[]);
 
 
 #endif // PARKING_LOT
