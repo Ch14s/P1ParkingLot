@@ -5,9 +5,9 @@
 #include <stdbool.h>
 
 #include "vehicle.h"
-ParkingSpot createParkingLot(){
+void createParkingLot(){
 
-    ParkingSpot spaces[PARKING_SPOTS];
+
     for (int i = 0; i<300; i++) {
         spaces[i].vehicleType = small;
         spaces[i].isDisable = 0;
@@ -27,11 +27,16 @@ ParkingSpot createParkingLot(){
             spaces[i].isDisable = 1;
         }else{spaces[i].isElectric = 0;}
     }
-    return spaces[999];
 };
 
-void placeCar(Vehicle car, int index ){
-    spaces[index].vehicle;
+void placeCar(Vehicle car, ParkingSpot spaces[] ){
+    int isOccupied = 0;
+    for (int i; i<PARKING_SPOTS; i++) {
+        if (!isOccupied) {
+            if (car.vehicleType == small ) {
 
+            }
+        }
+    }
 
 }
