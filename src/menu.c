@@ -23,7 +23,8 @@ void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
     {
     case 'R':
     case 'r':
-        *currentVehicle = registerCar();
+        //*currentVehicle = registerCar();
+            registerCar();
         break;
     case 'F':
     case 'f':
@@ -46,19 +47,50 @@ Vehicle registerCar()
     //request informatiion about the car
     char licensePlate[8];
     char size;
-    int isElectric;
-    int isHandicapped;
+
+
+    char handicappedinput;
+    char electricinput;
+
     printf("\nPlease enter license plate > ");
     scanf("%s",licensePlate);
     printf("\nPlease enter vehicle size [s]/[m]/[l] > ");
-    scanf("%c",&size);
+    scanf(" %c",&size);
     printf("\nDo you have any accessibility needs [y]/[n] > ");
-    scanf("%d",&isHandicapped);
+    scanf(" %c",&handicappedinput);
     printf("\nIs your vehicle electric [y]/[n] > ");
-    scanf("%d",&isElectric);
+    scanf(" %c",&electricinput);
+    //Confirmation, checks if the infor the user has typed is correct
+    printf("\nplease confirm your input: ");
+    printf("\n Licens plate: ""%s", licensePlate);
+    printf("\n Vehicle size: ""%c", size);
+    printf("\n Electric: ""%c", handicappedinput);
+    printf("\n Handicapped: ""%c", electricinput);
+    printf("\n");
+    printf("is this information correct? [y]/[n]:  ");
+
+    int isHandicapped = (handicappedinput=='y'|| handicappedinput=='Y') ? 1 : 0;
+
+    int isElectric = (electricinput=='y'|| electricinput=='Y') ? 1 : 0;
+    printf("\n") ;
+
+    char confirm;
+    scanf(" %c",&confirm);
+    if (confirm == 'y') {
+        printf("\n perfect!\n");
+        return generateVehicle(licensePlate,size,isElectric,isHandicapped);
+
+    }
+    else {
+        printf("please try again");
+        return registerCar();
+    }
+    
+
+    
+    
 
     VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
-    return generateVehicle(licensePlate,size,isElectric,isHandicapped);
     
 }
 
