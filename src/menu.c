@@ -11,15 +11,16 @@ void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
 {
     char choice = '\0';
     printf("Main menu: ");
-    printf("\n(R)  -  Register car ");
-    printf("\n(F)  -  Find Parking" );
-    printf("\n(E)  -  Leave Parking");
+    printf("\n[R]  -  Register car ");
+    printf("\n[F]  -  Find Parking" );
+    printf("\n[E]  -  Leave Parking");
+    printf("\n[Q]  -  Exit application");
     if (scanf("%c", &choice) == 0)
     {
         printf("Error reading input");
         return;
     }
-    switch (choice)
+      switch (choice)
     {
     case 'R':
     case 'r':

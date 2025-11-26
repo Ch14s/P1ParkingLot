@@ -2,6 +2,10 @@
 #define VEHICLE
 #include <stdbool.h>
 
+/**
+ * @brief Enum of types of vehicle sizes
+ * 
+ */
 typedef enum {
     small,
     medium,
@@ -64,6 +68,7 @@ Vehicle* allocateMemoryForVehicle(Vehicle vehicle);
 /**
  * @brief Free a vehicle from memory
  * 
+ * @param Vehicle to be freed
  */
 void deAllocateMemoryForVehicle(Vehicle* vehicle);
 #endif // VEHICLE
