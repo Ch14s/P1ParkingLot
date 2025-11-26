@@ -8,6 +8,6 @@
  * @param currentVehicle The vehicle currently being modified
  * @param exitFlag bool If true the program will exit
  */
-void displayMenu(Vehicle* currentVehicle, bool exitFlag);
+void displayMenu(Vehicle* currentVehicle, bool *exitFlag);
 
 #endif // MENU

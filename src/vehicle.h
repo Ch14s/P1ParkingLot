@@ -31,4 +31,7 @@ typedef struct
  */
 Vehicle generateVehicle(char licensePLate[8],VehicleType vehicleType, bool isElectric, bool isHandicapped);
 
+Vehicle generateRandomVehicle();
+Vehicle GenerateTypeVehicle(VehicleType vehicleType);
+
 #endif // VEHICLE
