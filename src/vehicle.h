@@ -31,7 +31,26 @@ typedef struct
  */
 Vehicle generateVehicle(char licensePLate[8],VehicleType vehicleType, bool isElectric, bool isHandicapped);
 
+/**
+ * @brief Function to generate a random vehicle
+ * 
+ * @return Random vehicle 
+ */
 Vehicle generateRandomVehicle();
+
+/**
+ * @brief Function for generating a vehicle with specific type
+ * 
+ * @param vehicleType the type of the vehicle (small/mmedium/large) 
+ * @return random vehicle with specifc type
+ */
 Vehicle GenerateTypeVehicle(VehicleType vehicleType);
+
+/**
+ * @brief Print information of vehicle to stdout
+ * 
+ * @param vehicle struct containing information
+ */
+void printVehicleInformation(Vehicle vehicle);
 
 #endif // VEHICLE

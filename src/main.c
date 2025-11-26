@@ -6,14 +6,15 @@
 #include "parkingLot.c"
 int main(int argc, char** argv){
     Vehicle *currentVehicle;
+    currentVehicle = (Vehicle*)calloc(1,sizeof(Vehicle));
     bool exitFlag = false;
     printf("Parking Management system! \n");
-    createParkingLot(); // Her laver vi vores parkings plads så den er global til alle vores funktioner fuuuark
+    // createParkingLot(); // Her laver vi vores parkings plads så den er global til alle vores funktioner fuuuark
 
     do{
         displayMenu(currentVehicle,&exitFlag);
     }
-    while(exitFlag);
+    while(!exitFlag);
 
 
 }

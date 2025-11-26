@@ -23,8 +23,8 @@ void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
     {
     case 'R':
     case 'r':
-        //*currentVehicle = registerCar();
-            registerCar();
+        *currentVehicle = registerCar();
+            // registerCar();
         break;
     case 'F':
     case 'f':
@@ -68,9 +68,10 @@ Vehicle registerCar()
     printf("\n Handicapped: ""%c", electricinput);
     printf("\n");
     printf("is this information correct? [y]/[n]:  ");
-
+    
+    //convert chars to values
+    VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
     int isHandicapped = (handicappedinput=='y'|| handicappedinput=='Y') ? 1 : 0;
-
     int isElectric = (electricinput=='y'|| electricinput=='Y') ? 1 : 0;
     printf("\n") ;
 
@@ -78,7 +79,7 @@ Vehicle registerCar()
     scanf(" %c",&confirm);
     if (confirm == 'y') {
         printf("\n perfect!\n");
-        return generateVehicle(licensePlate,size,isElectric,isHandicapped);
+        return generateVehicle(licensePlate,vehicleType,isElectric,isHandicapped);
 
     }
     else {
@@ -90,7 +91,6 @@ Vehicle registerCar()
     
     
 
-    VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
     
 }
 
