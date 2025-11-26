@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "menu.h"
 #include "parkingLot.h"
-#include "parkingLot.c"
+#include "vehicle.h"
 int main(int argc, char** argv){
     Vehicle *currentVehicle;
     currentVehicle = (Vehicle*)calloc(1,sizeof(Vehicle));
