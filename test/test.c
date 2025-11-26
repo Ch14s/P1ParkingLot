@@ -7,9 +7,5 @@
 #include <stdio.h> 
 
 int main(){
-    Vehicle v = generateRandomVehicle();
 
-    printf("%s %d %d %d ", v.licensePlate, v.vehicleType, v.isDisabled ,v.isElectric);
-
-    assert(1==1);
 }
