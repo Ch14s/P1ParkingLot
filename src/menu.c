@@ -47,8 +47,6 @@ Vehicle registerCar()
     //request informatiion about the car
     char licensePlate[8];
     char size;
-
-
     char handicappedinput;
     char electricinput;
 
@@ -60,6 +58,7 @@ Vehicle registerCar()
     scanf(" %c",&handicappedinput);
     printf("\nIs your vehicle electric [y]/[n] > ");
     scanf(" %c",&electricinput);
+
     //Confirmation, checks if the infor the user has typed is correct
     printf("\nplease confirm your input: ");
     printf("\n Licens plate: ""%s", licensePlate);
@@ -73,8 +72,10 @@ Vehicle registerCar()
     VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
     int isHandicapped = (handicappedinput=='y'|| handicappedinput=='Y') ? 1 : 0;
     int isElectric = (electricinput=='y'|| electricinput=='Y') ? 1 : 0;
-    printf("\n") ;
 
+
+
+    printf("\n") ;
     char confirm;
     scanf(" %c",&confirm);
     if (confirm == 'y') {
