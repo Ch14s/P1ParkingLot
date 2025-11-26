@@ -7,7 +7,7 @@
 
 Vehicle registerCar();
 
-void displayMenu(Vehicle* currentVehicle, bool exitFlag)
+void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
 {
     char choice = '\0';
     printf("Main menu: ");
@@ -29,7 +29,12 @@ void displayMenu(Vehicle* currentVehicle, bool exitFlag)
     case 'f':
         
         // FindEmptyParkingSpace();
-
+        break;
+    case 'Q':
+    case 'q':
+        *exitFlag=true;
+        return;
+    break;
     default:
         printf("Invalid input");
         break;
