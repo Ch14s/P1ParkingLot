@@ -6,7 +6,9 @@
 int main(int argc, char** argv){
     printf("Parking Management system! \n");
     createParkingLot(); // Her laver vi vores parkings plads så den er global til alle vores funktioner fuuuark
-    displayMenu();
+    Vehicle* currentVehicle;
+    bool exitFlag = false;
+    displayMenu(currentVehicle, exitFlag);
 
 
 }
