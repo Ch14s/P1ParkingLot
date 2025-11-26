@@ -49,8 +49,21 @@ Vehicle GenerateTypeVehicle(VehicleType vehicleType);
 /**
  * @brief Print information of vehicle to stdout
  * 
- * @param vehicle struct containing information
+ * @param vehicle 
  */
 void printVehicleInformation(Vehicle vehicle);
 
+/**
+ * @brief Get a pointer for a vehicle
+ * 
+ * @param vehicle 
+ * @return Vehicle* 
+ */
+Vehicle* allocateMemoryForVehicle(Vehicle vehicle);
+
+/**
+ * @brief Free a vehicle from memory
+ * 
+ */
+void freeVehicle(Vehicle* vehicle)
 #endif // VEHICLE
