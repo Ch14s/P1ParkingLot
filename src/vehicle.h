@@ -65,5 +65,5 @@ Vehicle* allocateMemoryForVehicle(Vehicle vehicle);
  * @brief Free a vehicle from memory
  * 
  */
-void freeVehicle(Vehicle* vehicle)
+void deAllocateMemoryForVehicle(Vehicle* vehicle)
 #endif // VEHICLE

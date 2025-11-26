@@ -81,7 +81,7 @@ Vehicle* allocateMemoryForVehicle(Vehicle vehicle){
     vptr=(Vehicle*)calloc(1,sizeof(Vehicle));
     return vptr;
 }
-void freeVehicle(Vehicle* vehicle){
+void deAllocateMemoryForVehicle(Vehicle* vehicle){
     free(vehicle);
     return;
 }
