@@ -5,7 +5,7 @@
 typedef enum {
     small,
     medium,
-    large
+    large,
 }VehicleType;
 
 /**

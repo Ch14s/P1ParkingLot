@@ -125,12 +125,9 @@ ParkingSpot* findCar(ParkingSpot* spaces, char licensePlate[8]) {
     }
 }
 
-void removeCar(ParkingSpot *spaces) {
-    Vehicle v = {.isElectric = 0, .vehicleType = 0, .licensePlate = 0, .isDisabled = 0};
-    spaces[0].vehicle = v;
-    spaces[0].vehicleType = 0;
+Vehicle removeCar(ParkingSpot *spaces) {
+
     spaces[0].isOccupied = 0;
-    spaces[0].isDisable = 0;
-    spaces[0].isElectric = 0;
+    return spaces[0].vehicle;
 
 }
