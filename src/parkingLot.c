@@ -1,6 +1,6 @@
 #include "parkingLot.h"
 #include <stdio.h>
-
+#include <string.h>
 ParkingSpot spaces[PARKING_SPOTS];
 
 void createParkingLot() {
@@ -42,6 +42,7 @@ void createParkingLot() {
     }
 
     printf("Parking lot created successfully.\n");
+
 }
 
 
@@ -112,4 +113,24 @@ void placeCar(ParkingSpot spaces[], Vehicle car) {
     spaces[index].isOccupied = 1;
 
     printf("Car parked at spot %d.\n", index);
+}
+
+ParkingSpot* findCar(ParkingSpot* spaces, char licensePlate[8]) {
+    for (int i = 0; i< PARKING_SPOTS; i++) {
+        if (strcmp(spaces[i].vehicle.licensePlate, licensePlate) == 0) /*tjekker om nummer pladen er
+            på en af pladserne */ {
+            return &spaces[i];
+        }
+        else{return NULL;}
+    }
+}
+
+void removeCar(ParkingSpot *spaces) {
+    Vehicle v = {.isElectric = 0, .vehicleType = 0, .licensePlate = 0, .isDisabled = 0};
+    spaces[0].vehicle = v;
+    spaces[0].vehicleType = 0;
+    spaces[0].isOccupied = 0;
+    spaces[0].isDisable = 0;
+    spaces[0].isElectric = 0;
+
 }

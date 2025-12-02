@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     bool exitFlag = false;
     printf("Parking Management system! \n");
     createParkingLot(); // Her laver vi vores parkings plads så den er global til alle vores funktioner fuuuark
-
+    printf("spot i arrayet: %d \n", spaces[960].isElectric);
     do{
         displayMenu(currentVehicle,&exitFlag);
     }
