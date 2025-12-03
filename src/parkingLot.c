@@ -46,7 +46,7 @@ void createParkingLot() {
 }
 
 
-int findFreeSpot(ParkingSpot spaces[], Vehicle car) {
+int findFreeSpot(ParkingSpot *spaces, Vehicle car) {
 
     // Første skridt: Handicap biler finder en handicap plads
     if (car.isDisabled) {
@@ -99,7 +99,7 @@ int findFreeSpot(ParkingSpot spaces[], Vehicle car) {
 }
 
 
-void placeCar(ParkingSpot spaces[], Vehicle car) {
+void placeCar(ParkingSpot *spaces, Vehicle car) {
 
     int index = findFreeSpot(spaces, car);
 
@@ -121,8 +121,8 @@ ParkingSpot* findCar(ParkingSpot* spaces, char licensePlate[8]) {
             på en af pladserne */ {
             return &spaces[i];
         }
-        else{return NULL;}
     }
+    return NULL;
 }
 
 Vehicle removeCar(ParkingSpot *spaces) {
@@ -131,3 +131,38 @@ Vehicle removeCar(ParkingSpot *spaces) {
     return spaces[0].vehicle;
 
 }
+
+int emptySpacesSmall(ParkingSpot *spaces) {
+
+    int counter = 0;
+
+    for (int i = 0; i<1000; i++) {
+        if (spaces[i].vehicleType == small && spaces[i].isOccupied == false) {
+            counter += 1;
+        }
+    }
+    return counter;
+}
+
+int emptySpacesMedium(ParkingSpot *spaces) {
+    int counter = 0;
+
+    for (int i = 0; i<1000; i++) {
+        if (spaces[i].vehicleType == medium && spaces[i].isOccupied == false) {
+            counter += 1;
+        }
+    }
+    return counter;
+}
+
+int emptySpacesLarge(ParkingSpot *spaces) {
+    int counter = 0;
+
+    for (int i = 0; i<1000; i++) {
+        if (spaces[i].vehicleType == large && spaces[i].isOccupied == false) {
+            counter += 1;
+        }
+    }
+    return counter;
+}
+
