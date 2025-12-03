@@ -58,6 +58,14 @@ Vehicle GenerateTypeVehicle(VehicleType vehicleType);
 void printVehicleInformation(Vehicle vehicle);
 
 /**
+ * @brief Function for creating vehicle with specific plate
+ * 
+ * @param licensePlate 
+ * @return Vehicle 
+ */
+Vehicle GenerateLicensePlateVehicle(char *licensePlate);
+
+/**
  * @brief Get a pointer for a vehicle
  * 
  * @param vehicle 

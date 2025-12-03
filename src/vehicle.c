@@ -63,6 +63,24 @@ Vehicle GenerateTypeVehicle(VehicleType vehicleType)
 
     return v;
 }
+Vehicle GenerateLicensePlateVehicle(char *licensePlate)
+{
+    Vehicle v;
+    srand(time(NULL));
+
+    strcpy(v.licensePlate, licensePlate);
+
+    // generate random vehicle type
+    v.vehicleType = rand()%3;
+
+    // Generate random electric flag
+    v.isElectric = rand() % 2;
+
+    // Generate random handicapped flag
+    v.isDisabled = rand() % 2;
+
+    return v;
+}
 void printVehicleInformation(Vehicle v)
 {
     // converstions from values to text
