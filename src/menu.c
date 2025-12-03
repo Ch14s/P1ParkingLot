@@ -53,8 +53,21 @@ Vehicle registerCar()
 
     printf("\nPlease enter license plate > ");
     scanf("%s",licensePlate);
-    printf("\nPlease enter vehicle size [s]/[m]/[l] > ");
-    scanf(" %c",&size);
+    int RightInput = 0;
+    do {
+
+        printf("\nPlease enter vehicle size [s]/[m]/[l] > ");
+        scanf(" %c",&size);
+        if (size == 's' || size == 'm' || size == 'l' ||
+            size == 'S' || size == 'M' || size == 'L') {
+            RightInput = 1;
+        }
+        else {
+            printf("please enter a valid input");
+        }
+
+    }  while (RightInput == 0);
+
     printf("\nDo you have any accessibility needs [y]/[n] > ");
     scanf(" %c",&handicappedinput);
     printf("\nIs your vehicle electric [y]/[n] > ");
