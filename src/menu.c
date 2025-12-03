@@ -3,6 +3,8 @@
 #include <string.h>
 
 #include "menu.h"
+
+#include "parkingLot.h"
 #include "vehicle.h"
 
 Vehicle registerCar();
@@ -29,6 +31,7 @@ void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
         break;
     case 'F':
     case 'f':
+
         
         // FindEmptyParkingSpace();
         break;

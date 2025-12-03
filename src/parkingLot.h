@@ -8,11 +8,11 @@ typedef struct {
     VehicleType vehicleType;
     int isElectric;
     int isDisable;
-
+    int isOccupied;
 } ParkingSpot;
 
-ParkingSpot spaces[PARKING_SPOTS];
-
-
-
+extern ParkingSpot spaces[PARKING_SPOTS];
+void createParkingLot();
+void placeCar(ParkingSpot spaces[], Vehicle car);
+int findFreeSpot(ParkingSpot spaces[], Vehicle car);
 #endif // PARKING_LOT
