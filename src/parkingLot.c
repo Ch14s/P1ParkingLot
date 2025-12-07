@@ -99,7 +99,7 @@ int findFreeSpot(ParkingSpot spaces[], Vehicle car) {
 }
 
 
-void placeCar(ParkingSpot spaces[], Vehicle car) {
+void placeCar(ParkingSpot *spaces, Vehicle car) {
 
     int index = findFreeSpot(spaces, car);
 
@@ -121,8 +121,8 @@ ParkingSpot* findCar(ParkingSpot* spaces, char licensePlate[8]) {
             på en af pladserne */ {
             return &spaces[i];
         }
-        else{return NULL;}
     }
+    return NULL;
 }
 
 Vehicle removeCar(ParkingSpot *spaces) {
