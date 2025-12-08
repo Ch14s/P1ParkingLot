@@ -5,13 +5,26 @@
 
 
 
-int clog(const char *path, const char* message){
+int customLog(const char *path, const char* prefix, const char* message){
     FILE *f = fopen(path,"a");
-    if (f==NULL)return EXIT_FAILURE;
+    if (f==NULL)
+    {
+        return EXIT_FAILURE;
+    }
 
-    fprintf(f,"\n%s",message);
+    fprintf(f,"\n%-10s%s",prefix,message);
 
     fclose(f);
     
     return EXIT_SUCCESS;
+}
+void clearLogFile(const char* path){
+    FILE *f = fopen(path,"w");
+    if (f==NULL)
+    {
+        return;
+    }
+    fprintf(f,"===BEGIN LOG===");
+
+    fclose(f);
 }
