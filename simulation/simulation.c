@@ -14,7 +14,7 @@
 #define NUMBER_OF_ACTIONS 10000
 
 int *generateActions(int numberOfActions, int *actionArr);
-int simulate(int numberOfActions, int *actionArr);
+int simulate(int numberOfActions, int *actionArr,char **lpv);
 void setupSimulation();
 int validateSimulation();
 void parkAction();
@@ -35,7 +35,7 @@ int *generateActions(int numberOfActions, int *actionArr)
     {
         if (i < 10)
         {
-            actionArr[i] = 1;
+            actionArr[i] = 0;
         }
         else{
             
@@ -44,7 +44,7 @@ int *generateActions(int numberOfActions, int *actionArr)
     }
     return actionArr;
 }
-int simulate(int numberOfActions, int *actionArr)
+int simulate(int numberOfActions, int *actionArr, char **lpv)
 {
     srand(time(NULL));
     for (int i = 0; i < numberOfActions; i++)
@@ -52,7 +52,7 @@ int simulate(int numberOfActions, int *actionArr)
         switch (actionArr[i])
         {
         case 0:
-            parkAction(i);
+            parkAction(i,);
             break;
         case 1:
             removeAction(i);
