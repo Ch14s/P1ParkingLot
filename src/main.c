@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include "menu.h"
 #include "parkingLot.h"
-#include "parkingLot.c"
 int main(int argc, char** argv){
     Vehicle *currentVehicle;
     bool exitFlag = false;

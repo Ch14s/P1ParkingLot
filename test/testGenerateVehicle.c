@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
-/*int testGenerateSpecificVehicle(){
+int testGenerateSpecificVehicle(){
     char lp[8]="as74744";
     Vehicle v1 = {.isDisabled = true, .isElectric = false, .vehicleType = small};
     strcpy(v1.licensePlate, lp);
@@ -14,7 +14,7 @@
     printf("v1 %s",v1.licensePlate);
     printf("v2 %s",v2.licensePlate);
     assert(strcmp(v1.licensePlate,v2.licensePlate)==0);
-}*/
+}
 
 
 
@@ -87,7 +87,7 @@ void test_removeCar() {
     Vehicle removed = removeCar(spot);
 
 
-    ASSERT("removeCar should return DEL123", strcmp(removed.licensePlate, "DEL1234") == 0);
+    ASSERT("removeCar should return DEL1234", strcmp(removed.licensePlate, "DEL1234") == 0);
     ASSERT("Spot should be unoccupied after removal", spot->isOccupied == 0);
 }
 
