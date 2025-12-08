@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "LicensePlate.h"
 
@@ -66,6 +67,28 @@ size_t getLicensePlateCount(void) {
 const char* getLicensePlateAt(size_t index) {
     if (index >= g_count) return NULL;
     return g_plates[index];
+}
+
+bool removeLicensePlateAt(size_t index) {
+    if (!g_initialized) return false;
+    if (index >= g_count) return false;
+
+
+    const char* plate = g_plates[index];
+    printf("Deleting license plate at index %zu: %s\n", index, plate ? plate : "(null)");
+
+
+    free(g_plates[index]);
+
+
+    for (size_t i = index + 1; i < g_count; ++i) {
+        g_plates[i - 1] = g_plates[i];
+    }
+
+
+    g_plates[g_count - 1] = NULL;
+    g_count--;
+    return true;
 }
 
 void clearLicensePlates(void) {
