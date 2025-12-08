@@ -6,6 +6,8 @@
 
 #include "parkingLot.h"
 #include "vehicle.h"
+#include "LicensePlate.h"
+
 
 Vehicle registerCar();
 
@@ -55,7 +57,7 @@ Vehicle registerCar()
     char electricinput;
 
     printf("\nPlease enter license plate > ");
-    scanf("%s",licensePlate);
+    scanf("%7s",licensePlate); // limit to 7 chars + null terminator to avoid overflow
     int RightInput = 0;
     do {
 
@@ -84,6 +86,10 @@ Vehicle registerCar()
     printf("\n Handicapped: ""%c", electricinput);
     printf("\n");
     printf("is this information correct? [y]/[n]:  ");
+    printf("Currently stored plates: %zu\n", getLicensePlateCount());
+    for (size_t i = 0; i < getLicensePlateCount(); ++i) {
+        printf("  %zu) %s\n", i + 1, getLicensePlateAt(i));
+    }
     
     //convert chars to values
     VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
@@ -97,6 +103,9 @@ Vehicle registerCar()
     scanf(" %c",&confirm);
     if (confirm == 'y') {
         printf("\n perfect!\n");
+        if (!addLicensePlate(licensePlate)) {
+            printf("Warning: could not store license plate in memory.\n");
+        }
         return generateVehicle(licensePlate,vehicleType,isElectric,isHandicapped);
 
     }
