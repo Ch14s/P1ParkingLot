@@ -17,8 +17,8 @@ size_t getLicensePlateCount(void);
 // Get a read-only pointer to a stored plate string at index, or NULL if out of range.
 const char* getLicensePlateAt(size_t index);
 
-// Remove the plate at index (0-based). Returns true on success, false if index is out of range.
-bool removeLicensePlateAt(size_t index);
+
+char* removeLicensePlateAt(size_t index);
 
 // Free all stored plates and reset internal storage.
 void clearLicensePlates(void);

@@ -69,16 +69,12 @@ const char* getLicensePlateAt(size_t index) {
     return g_plates[index];
 }
 
-bool removeLicensePlateAt(size_t index) {
-    if (!g_initialized) return false;
-    if (index >= g_count) return false;
+char* removeLicensePlateAt(size_t index) {
+    if (!g_initialized) return NULL;
+    if (index >= g_count) return NULL;
 
 
-    const char* plate = g_plates[index];
-    printf("Deleting license plate at index %zu: %s\n", index, plate ? plate : "(null)");
-
-
-    free(g_plates[index]);
+    char* removed = g_plates[index];
 
 
     for (size_t i = index + 1; i < g_count; ++i) {
@@ -88,7 +84,8 @@ bool removeLicensePlateAt(size_t index) {
 
     g_plates[g_count - 1] = NULL;
     g_count--;
-    return true;
+
+    return removed;
 }
 
 void clearLicensePlates(void) {
