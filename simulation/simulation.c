@@ -9,6 +9,7 @@
 #include "../src/parkingLot.h"
 #include "../src/parkingLot.h"
 #include "log.h"
+#include "../src/LicensePlate.h"
 // #include "../src/parkingLot.h"
 #include "../src/vehicle.h"
 
@@ -69,6 +70,7 @@ int validateSimulation()
 void parkAction(int i, char **lpv /*,Buffer*/)
 {
     char *lp = lpv[i];
+    addLicensePlate(lp);
     // add lp to buf
     // spaces[];
     Vehicle v = GenerateLicensePlateVehicle(lp);
@@ -78,9 +80,15 @@ void parkAction(int i, char **lpv /*,Buffer*/)
 }
 void removeAction(int in /*,Buffer*/)
 {
+    // srand(time(NULL));
+    // int licensePlatelateToRemove = rand() % getLicensePlateCount();
+    // char* str1 = "Remove license plate: ";
+    // customLog(LOG_PATH,"[<=]", strcat(str1,licensePlatelateToRemove));
 }
 void main()
 {
+    initLicensePlates();
+
     clearLogFile(LOG_PATH);
     createParkingLot();
     char path[] = "../src/licensePlates.txt";
