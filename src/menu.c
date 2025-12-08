@@ -7,12 +7,13 @@
 #include "parkingLot.h"
 #include "vehicle.h"
 #include "LicensePlate.h"
-
+#define clear() printf("\e[1;1H\e[2J");
 
 Vehicle registerCar();
 
 void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
 {
+    //Clear input buffer
     char choice = '\0';
     printf("Main menu: ");
     printf("\n[R]  -  Register car ");
@@ -46,6 +47,8 @@ void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
         printf("Invalid input");
         break;
     }
+    while ((getchar()) != '\n');
+    clear();
     return;
 }
 Vehicle registerCar()
@@ -115,6 +118,5 @@ Vehicle registerCar()
     
     
 
-    
 }
 
