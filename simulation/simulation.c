@@ -78,12 +78,12 @@ void parkAction(int i, char **lpv /*,Buffer*/)
     char str1[100] = "Car parked with license plate: ";
     customLog(LOG_PATH,"[=>]", strcat(str1,v.licensePlate));
 }
-void removeAction(int in /*,Buffer*/)
+void removeAction(int i /*,Buffer*/)
 {
-    // srand(time(NULL));
-    // int licensePlatelateToRemove = rand() % getLicensePlateCount();
-    // char* str1 = "Remove license plate: ";
-    // customLog(LOG_PATH,"[<=]", strcat(str1,licensePlatelateToRemove));
+    srand(time(NULL));
+    int licensePlatelateToRemove = rand() % getLicensePlateCount();
+    char* str1 = "Remove license plate: ";
+    customLog(LOG_PATH,"[<=]", strcat(str1,licensePlatelateToRemove));
 }
 void main()
 {

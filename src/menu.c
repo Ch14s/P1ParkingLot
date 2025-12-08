@@ -10,7 +10,8 @@
 #define clear() printf("\e[1;1H\e[2J");
 
 Vehicle registerCar();
-
+Vehicle removeCarFromParking();
+void findEmptyParkingSpace(const Vehicle vehicle);
 void displayMenu(Vehicle *currentVehicle, bool *exitFlag)
 {
     // Clear input buffer
@@ -35,10 +36,10 @@ void displayMenu(Vehicle *currentVehicle, bool *exitFlag)
     case 'F':
     case 'f':
 
-        findEmptyParkingSpace(currentVehicle);
+        findEmptyParkingSpace(*currentVehicle);
         break;
-    case 'L':
-    case 'l':
+    case 'E':
+    case 'e':
         *currentVehicle = removeCarFromParking();
         break;
     case 'Q':
@@ -116,12 +117,6 @@ Vehicle registerCar()
     VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
     int isHandicapped = (handicappedinput=='y'|| handicappedinput=='Y') ? 1 : 0;
     int isElectric = (electricinput=='y'|| electricinput=='Y') ? 1 : 0;
-    
-    // convert chars to values
-    VehicleType vehicleType = size == 's' ? small : size == 'm' ? medium
-                                                                : large;
-    int isHandicapped = (handicappedinput == 'y' || handicappedinput == 'Y') ? 1 : 0;
-    int isElectric = (electricinput == 'y' || electricinput == 'Y') ? 1 : 0;
 
     printf("\n");
     char confirm;
@@ -142,11 +137,14 @@ Vehicle registerCar()
     }
 }
 
-void FindEmptyParkingSpace(const Vehicle vehicle)
-{   
+void findEmptyParkingSpace(const Vehicle vehicle)
+{   printf("\nParking Your Vehicle");
     placeCar(spaces, vehicle);
     addLicensePlate(vehicle.licensePlate);
 }
 Vehicle removeCarFromParking(){
-
+    printf("\nPlease enter your license plate> ");
+    char licensePlate[8];
+    scanf("%s", licensePlate);
+    removeCar(findCar(spaces,licensePlate));
 }
