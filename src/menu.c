@@ -11,13 +11,13 @@
 
 Vehicle registerCar();
 
-void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
+void displayMenu(Vehicle *currentVehicle, bool *exitFlag)
 {
-    //Clear input buffer
+    // Clear input buffer
     char choice = '\0';
     printf("Main menu: ");
     printf("\n[R]  -  Register car ");
-    printf("\n[F]  -  Find Parking" );
+    printf("\n[F]  -  Find Parking");
     printf("\n[E]  -  Leave Parking");
     printf("\n[Q]  -  Exit application");
     if (scanf("%c", &choice) == 0)
@@ -25,98 +25,128 @@ void displayMenu(Vehicle* currentVehicle, bool *exitFlag)
         printf("Error reading input");
         return;
     }
-      switch (choice)
+    switch (choice)
     {
     case 'R':
     case 'r':
         *currentVehicle = registerCar();
-            // registerCar();
+        // registerCar();
         break;
     case 'F':
     case 'f':
 
-        
-        // FindEmptyParkingSpace();
+        findEmptyParkingSpace(currentVehicle);
+        break;
+    case 'L':
+    case 'l':
+        *currentVehicle = removeCarFromParking();
         break;
     case 'Q':
     case 'q':
-        *exitFlag=true;
+        *exitFlag = true;
         return;
-    break;
+        break;
     default:
         printf("Invalid input");
         break;
     }
-    while ((getchar()) != '\n');
+    while ((getchar()) != '\n')
+        ;
     clear();
     return;
 }
 Vehicle registerCar()
 {
-    //request informatiion about the car
+    // request informatiion about the car
     char licensePlate[8];
     char size;
     char handicappedinput;
     char electricinput;
 
     printf("\nPlease enter license plate > ");
-    scanf("%7s",licensePlate); // limit to 7 chars + null terminator to avoid overflow
+    scanf("%7s", licensePlate); // limit to 7 chars + null terminator to avoid overflow
     int RightInput = 0;
-    do {
+    do
+    {
 
         printf("\nPlease enter vehicle size [s]/[m]/[l] > ");
-        scanf(" %c",&size);
+        scanf(" %c", &size);
         if (size == 's' || size == 'm' || size == 'l' ||
-            size == 'S' || size == 'M' || size == 'L') {
+            size == 'S' || size == 'M' || size == 'L')
+        {
             RightInput = 1;
         }
-        else {
+        else
+        {
             printf("please enter a valid input");
         }
 
-    }  while (RightInput == 0);
+    } while (RightInput == 0);
 
     printf("\nDo you have any accessibility needs [y]/[n] > ");
-    scanf(" %c",&handicappedinput);
+    scanf(" %c", &handicappedinput);
     printf("\nIs your vehicle electric [y]/[n] > ");
-    scanf(" %c",&electricinput);
+    scanf(" %c", &electricinput);
 
-    //Confirmation, checks if the infor the user has typed is correct
+    // Confirmation, checks if the infor the user has typed is correct
     printf("\nplease confirm your input: ");
-    printf("\n Licens plate: ""%s", licensePlate);
-    printf("\n Vehicle size: ""%c", size);
-    printf("\n Electric: ""%c", handicappedinput);
-    printf("\n Handicapped: ""%c", electricinput);
+    printf("\n Licens plate: "
+           "%s",
+           licensePlate);
+    printf("\n Vehicle size: "
+           "%c",
+           size);
+    printf("\n Electric: "
+           "%c",
+           handicappedinput);
+    printf("\n Handicapped: "
+           "%c",
+           electricinput);
     printf("\n");
     printf("is this information correct? [y]/[n]:  ");
+    printf("Currently stored plates: %zu\n", getLicensePlateCount());
+    for (size_t i = 0; i < getLicensePlateCount(); ++i)
+    {
+        printf("  %zu) %s\n", i + 1, getLicensePlateAt(i));
+    }
+
 
     
     //convert chars to values
     VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
     int isHandicapped = (handicappedinput=='y'|| handicappedinput=='Y') ? 1 : 0;
     int isElectric = (electricinput=='y'|| electricinput=='Y') ? 1 : 0;
+    
+    // convert chars to values
+    VehicleType vehicleType = size == 's' ? small : size == 'm' ? medium
+                                                                : large;
+    int isHandicapped = (handicappedinput == 'y' || handicappedinput == 'Y') ? 1 : 0;
+    int isElectric = (electricinput == 'y' || electricinput == 'Y') ? 1 : 0;
 
-
-
-    printf("\n") ;
+    printf("\n");
     char confirm;
-    scanf(" %c",&confirm);
-    if (confirm == 'y') {
+    scanf(" %c", &confirm);
+    if (confirm == 'y')
+    {
         printf("\n perfect!\n");
-        if (!addLicensePlate(licensePlate)) {
+        if (!addLicensePlate(licensePlate))
+        {
             printf("Warning: could not store license plate in memory.\n");
         }
-        return generateVehicle(licensePlate,vehicleType,isElectric,isHandicapped);
-
+        return generateVehicle(licensePlate, vehicleType, isElectric, isHandicapped);
     }
-    else {
+    else
+    {
         printf("please try again");
         return registerCar();
     }
-    
-
-    
-    
-
 }
 
+void FindEmptyParkingSpace(const Vehicle vehicle)
+{   
+    placeCar(spaces, vehicle);
+    addLicensePlate(vehicle.licensePlate);
+}
+Vehicle removeCarFromParking(){
+
+}
