@@ -104,27 +104,19 @@ Vehicle registerCar()
            electricinput);
     printf("\n");
     printf("is this information correct? [y]/[n]:  ");
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     printf("Currently stored plates: %zu\n", getLicensePlateCount());
     for (size_t i = 0; i < getLicensePlateCount(); ++i)
     {
         printf("  %zu) %s\n", i + 1, getLicensePlateAt(i));
     }
-=======
->>>>>>> 2a24036d8e6a152977aebf203f4034c7a7e0898f
+
 
     
     //convert chars to values
     VehicleType vehicleType = size=='s'?small:size=='m'?medium:large;
     int isHandicapped = (handicappedinput=='y'|| handicappedinput=='Y') ? 1 : 0;
     int isElectric = (electricinput=='y'|| electricinput=='Y') ? 1 : 0;
-<<<<<<< HEAD
-=======
->>>>>>> 2c7d2080c0fe11161a07f983585024429f659076
->>>>>>> 2a24036d8e6a152977aebf203f4034c7a7e0898f
-
+    
     // convert chars to values
     VehicleType vehicleType = size == 's' ? small : size == 'm' ? medium
                                                                 : large;
