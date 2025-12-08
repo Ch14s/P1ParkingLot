@@ -48,7 +48,7 @@ char ** tokensFromFile(const char *path){
 long sizeOfFile(const char *path){
     FILE *f = fopen(path, "rb");
     if (!f)
-        return NULL;
+        return 0;
 
     // Go to end to find size
     fseek(f, 0, SEEK_END);

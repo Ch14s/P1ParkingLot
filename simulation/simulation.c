@@ -8,13 +8,15 @@
 #include "File.h"
 #include "../src/parkingLot.h"
 #include "../src/parkingLot.h"
+#include "log.h"
 // #include "../src/parkingLot.h"
 #include "../src/vehicle.h"
 
-#define NUMBER_OF_ACTIONS 10000
+#define NUMBER_OF_ACTIONS 20
+#define LOG_PATH "SIM_LOG.txt"
 
 int *generateActions(int numberOfActions, int *actionArr);
-int simulate(int numberOfActions, int *actionArr,char **lpv);
+int simulate(int numberOfActions, int *actionArr, char **lpv);
 void setupSimulation();
 int validateSimulation();
 void parkAction();
@@ -22,11 +24,8 @@ void removeAction();
 
 void setupSimulation()
 {
-    char path[] = "../src/licensePlates.txt";
-    char **licensePlates = NULL;
-    licensePlates = tokensFromFile(path);
-    int *actionptr = calloc(NUMBER_OF_ACTIONS, sizeof(int));
-    actionptr = generateActions(NUMBER_OF_ACTIONS, actionptr);
+
+
 }
 int *generateActions(int numberOfActions, int *actionArr)
 {
@@ -37,8 +36,9 @@ int *generateActions(int numberOfActions, int *actionArr)
         {
             actionArr[i] = 0;
         }
-        else{
-            
+        else
+        {
+
             actionArr[i] = rand() % 2; // 1 is park  2 is remove
         }
     }
@@ -52,7 +52,7 @@ int simulate(int numberOfActions, int *actionArr, char **lpv)
         switch (actionArr[i])
         {
         case 0:
-            parkAction(i,);
+            parkAction(i, lpv);
             break;
         case 1:
             removeAction(i);
@@ -66,20 +66,30 @@ int validateSimulation()
 {
 }
 
-void parkAction(int i, char**lpv/*,Buffer*/)
+void parkAction(int i, char **lpv /*,Buffer*/)
 {
-    char* lp = lpv[i];
-    //add lp to buf
-    extern spaces;
+    char *lp = lpv[i];
+    // add lp to buf
+    // spaces[];
     Vehicle v = GenerateLicensePlateVehicle(lp);
     placeCar(spaces, v);
-
+    char str1[100] = "Car parked with license plate: ";
+    customLog(LOG_PATH,"[=>]", strcat(str1,v.licensePlate));
 }
-void removeAction(int i)
+void removeAction(int in /*,Buffer*/)
 {
 }
 void main()
 {
-    setupSimulation();
+    clearLogFile(LOG_PATH);
+    createParkingLot();
+    char path[] = "../src/licensePlates.txt";
+    char **licensePlates = NULL;
+    int *actionptr = calloc(NUMBER_OF_ACTIONS, sizeof(int));
+    actionptr = generateActions(NUMBER_OF_ACTIONS, actionptr);
+    licensePlates = tokensFromFile(path);
+    
+
+    simulate(NUMBER_OF_ACTIONS, actionptr, licensePlates);
     // generateActions(NUMBER_OF_ACTIONS, actionptr, fptr);
 }
