@@ -60,3 +60,5 @@ out/
 bin/
 test/test.c
 test/test.c
+.idea/
+
