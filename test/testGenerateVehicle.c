@@ -1,6 +1,7 @@
 #include "../src/vehicle.h"
 #include "../src/parkingLot.h"
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 int testGenerateSpecificVehicle(){
@@ -11,9 +12,21 @@ int testGenerateSpecificVehicle(){
     assert(v1.isDisabled==v2.isDisabled);
     assert(v1.isElectric==v2.isElectric);
     assert(v1.vehicleType==v2.vehicleType);
-    printf("v1 %s",v1.licensePlate);
-    printf("v2 %s",v2.licensePlate);
     assert(strcmp(v1.licensePlate,v2.licensePlate)==0);
+    printf("\nRANDOM VEHICLE SUCESSFULLY GENERATED");
+    return EXIT_SUCCESS;
+}
+int testGenerateWithSpecificType(){
+    Vehicle v = GenerateTypeVehicle(small);
+    assert(v.vehicleType==small);
+    printf("\nSMALL VEHICLE GENERATED");
+    v = GenerateTypeVehicle(medium);
+    assert(v.vehicleType==medium);
+    printf("\nMEDIUM VEHICLE GENERATED");
+    v = GenerateTypeVehicle(large);
+    assert(v.vehicleType==large);
+    printf("\nLARGE VEHICLE GENERATED");
+    return EXIT_SUCCESS;
 }
 
 
@@ -102,5 +115,6 @@ int main(){
     test_createParkingLot();
     //test_findCar();
     //test_removeCar();
-
+    testGenerateSpecificVehicle();
+    testGenerateWithSpecificType();
 }

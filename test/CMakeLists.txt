@@ -23,11 +23,15 @@ add_parking_test(test_removeCar test_removeCar.c)
 # add_executable(test2 test.c)
  #target_link_libraries(test2 vehicle parkingLot menu)
 
+# add_executable(simulation simulation.c)
+# target_link_libraries(simulation vehicle parkingLot)
 # --- Gen ---
  #add_test(NAME testGenerateVehicle
  #      COMMAND testGenerateVehicle)
 
 # --- Test ---
- #add_test(NAME test2
-#        COMMAND test2)
+add_test(NAME test2
+        COMMAND test2)
 
+# add_test(NAME simulation
+#         COMMAND simulation)
