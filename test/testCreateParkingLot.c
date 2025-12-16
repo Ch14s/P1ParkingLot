@@ -36,6 +36,6 @@ int main(){
 
 
     test_createParkingLot();
-
-
+    int counter = emptySpacesSmall(spaces);
+    printf("this is the counter: %d",counter);
 }

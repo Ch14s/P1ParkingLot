@@ -20,4 +20,5 @@ Vehicle removeCar(ParkingSpot *spaces);
 int emptySpacesSmall(ParkingSpot *spaces);
 int emptySpacesMedium(ParkingSpot *spaces);
 int emptySpacesLarge(ParkingSpot *spaces);
+void shuffleParkingLot(ParkingSpot *spaces);
 #endif // PARKING_LOT
