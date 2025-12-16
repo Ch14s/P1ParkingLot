@@ -13,8 +13,11 @@ typedef struct {
 
 extern ParkingSpot spaces[PARKING_SPOTS];
 void createParkingLot();
-void placeCar(ParkingSpot *spaces, Vehicle car);
+int placeCar(ParkingSpot *spaces, Vehicle car);
 int findFreeSpot(ParkingSpot *spaces, Vehicle car);
 ParkingSpot* findCar(ParkingSpot* spaces, char licensePlate[8]);
 Vehicle removeCar(ParkingSpot *spaces);
+int emptySpacesSmall(ParkingSpot *spaces);
+int emptySpacesMedium(ParkingSpot *spaces);
+int emptySpacesLarge(ParkingSpot *spaces);
 #endif // PARKING_LOT

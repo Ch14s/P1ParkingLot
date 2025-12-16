@@ -1,5 +1,6 @@
 #include "parkingLot.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 ParkingSpot spaces[PARKING_SPOTS];
 
@@ -99,20 +100,22 @@ int findFreeSpot(ParkingSpot *spaces, Vehicle car) {
 }
 
 
-void placeCar(ParkingSpot *spaces, Vehicle car) {
+int placeCar(ParkingSpot *spaces, Vehicle car) {
 
     int index = findFreeSpot(spaces, car);
 
     if (index == -1) {
         printf("No suitable parking spot found.\n");
-        return;
+        return EXIT_FAILURE;
     }
 
     // sætter bilen ind i pladsen
     spaces[index].vehicle = car;
     spaces[index].isOccupied = 1;
 
-    printf("Car parked at spot %d.\n", index);
+    // printf("Car parked at spot %d.\n", index);
+        return EXIT_SUCCESS;
+
 }
 
 ParkingSpot* findCar(ParkingSpot* spaces, char licensePlate[8]) {

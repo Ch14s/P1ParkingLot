@@ -19,4 +19,13 @@ int customLog(const char *path, const char* prefix, const char* message);
  */
 void clearLogFile(const char* path);
 
+/**
+ * @brief Function for logging data into csv file. Initiaplize by calling with colum names
+ * 
+ * @param path path to file
+ * @param data csv line
+ * @return int 1=success, 0 = failure
+ */
+int logData(const char *path, const char *data);
+
 #endif // C_LOG

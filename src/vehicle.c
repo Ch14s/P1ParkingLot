@@ -16,7 +16,6 @@ Vehicle generateVehicle(char licensePLate[8], VehicleType vehicleType, bool isEl
 Vehicle generateRandomVehicle()
 {
     Vehicle v;
-    srand(time(NULL));
 
     // Generate random licensePlate
     char licensePlate[8];
@@ -41,7 +40,6 @@ Vehicle generateRandomVehicle()
 Vehicle GenerateTypeVehicle(VehicleType vehicleType)
 {
     Vehicle v;
-    srand(time(NULL));
 
     // Generate random licensePlate
     char licensePlate[8];
@@ -66,7 +64,6 @@ Vehicle GenerateTypeVehicle(VehicleType vehicleType)
 Vehicle GenerateLicensePlateVehicle(char *licensePlate)
 {
     Vehicle v;
-    srand(time(NULL));
 
     strcpy(v.licensePlate, licensePlate);
 
