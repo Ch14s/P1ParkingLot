@@ -32,7 +32,7 @@ void setupSimulation();
 int validateSimulation();
 void parkAction();
 void removeAction();
-void logPark(int i,int action, VehicleType vehicleType, int isElectric, int isDisabled, int isSuccess, int hour);
+void logPark(int i, int action, VehicleType vehicleType, int isElectric, int isDisabled, int isSuccess, int hour);
 void setupSimulation()
 {
 }
@@ -95,6 +95,8 @@ int simulate(int numberOfActions, int *actionArr, char **lpv)
             removeAction(i);
             break;
         default:
+            logPark(i, 2, -1, -1, -1, 1, i / (NUMBER_OF_ACTIONS / 17));
+
             break;
         }
         // printf("\n%d", i);
@@ -115,19 +117,19 @@ void parkAction(int i, char **lpv /*,Buffer*/)
         char failStr[100] = "Failed to part car:";
         // printVehicleInformation(v);
         customLog(LOG_PATH, "[!]", failStr);
-        logPark(i,0, v.vehicleType, v.isElectric, v.isDisabled, 0, i / (NUMBER_OF_ACTIONS / 17));
+        logPark(i, 0, v.vehicleType, v.isElectric, v.isDisabled, 0, i / (NUMBER_OF_ACTIONS / 17));
         return;
     }
     addLicensePlate(lp);
     char str1[100] = "Car parked with license plate: ";
     customLog(LOG_PATH, "[=>]", strcat(str1, v.licensePlate));
-    logPark(i,0, v.vehicleType, v.isElectric, v.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17));
+    logPark(i, 0, v.vehicleType, v.isElectric, v.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17));
 }
 void removeAction(int i /*,Buffer*/)
 {
     if (getLicensePlateCount() == 0)
     {
-        logPark(i,1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17));
+        logPark(i, 1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17));
         char str1[100] = "No license plates in the buffer";
         customLog(LOG_PATH, "[NO CARS]", str1);
         return;
@@ -139,14 +141,14 @@ void removeAction(int i /*,Buffer*/)
     if (ps == NULL)
     {
 
-        logPark(i,1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17));
+        logPark(i, 1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17));
         char str1[100] = "Couldnt find car with given plate ";
         customLog(LOG_PATH, "[N_FOUND]", str1);
         return;
     }
     char str1[100] = "Remove license plate: ";
     customLog(LOG_PATH, "[<=]", strcat(str1, ps->vehicle.licensePlate));
-    logPark(i,1, ps->vehicle.vehicleType, ps->vehicle.isElectric, ps->vehicle.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17));
+    logPark(i, 1, ps->vehicle.vehicleType, ps->vehicle.isElectric, ps->vehicle.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17));
     removeCar(ps);
 }
 void main()
@@ -174,6 +176,6 @@ void logPark(int index, int action, VehicleType vehicleType, int isElectric, int
 {
 
     char strbuffer[200];
-    sprintf(strbuffer, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",index, action, vehicleType, isElectric, isDisabled, isSuccess, hour, emptySpacesSmall(spaces), emptySpacesMedium(spaces), emptySpacesLarge(spaces));
+    sprintf(strbuffer, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n", index, action, vehicleType, isElectric, isDisabled, isSuccess, hour, emptySpacesSmall(spaces), emptySpacesMedium(spaces), emptySpacesLarge(spaces));
     logData(CSV_PATH, strbuffer);
 }
