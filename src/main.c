@@ -9,10 +9,10 @@
 int main(int argc, char** argv){
     // Initialize in-memory storage for license plates
     initLicensePlates();
+    createParkingLot();
 
     bool exitFlag = false;
     Vehicle currentVehicle = {0};
-
     // Simple loop to show the menu until the user quits
     while (!exitFlag) {
         displayMenu(&currentVehicle, &exitFlag);
