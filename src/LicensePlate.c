@@ -5,9 +5,6 @@
 #include <stdio.h>
 
 #include "LicensePlate.h"
-
-// Simple dynamic array of C strings to store license plates in memory during runtime
-
 static char **g_plates = NULL;
 static size_t g_count = 0;
 static size_t g_capacity = 0;
