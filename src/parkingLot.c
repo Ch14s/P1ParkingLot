@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 ParkingSpot spaces[PARKING_SPOTS];
 
 void createParkingLot() {
@@ -43,7 +44,8 @@ void createParkingLot() {
     }
 
     printf("Parking lot created successfully.\n");
-
+    srand((unsigned int)time(NULL)); // Srand gør så det er totalt random numre, hvor p-pladserne bliver sat
+    shuffleParkingLot(spaces);
 }
 
 
@@ -139,7 +141,7 @@ int emptySpacesSmall(ParkingSpot *spaces) {
 
     int counter = 0;
 
-    for (int i = 0; i<1000; i++) {
+    for (int i = 0; i<PARKING_SPOTS; i++) {
         if (spaces[i].vehicleType == small && spaces[i].isOccupied == false) {
             counter += 1;
         }
@@ -150,7 +152,7 @@ int emptySpacesSmall(ParkingSpot *spaces) {
 int emptySpacesMedium(ParkingSpot *spaces) {
     int counter = 0;
 
-    for (int i = 0; i<1000; i++) {
+    for (int i = 0; i<PARKING_SPOTS; i++) {
         if (spaces[i].vehicleType == medium && spaces[i].isOccupied == false) {
             counter += 1;
         }
@@ -161,7 +163,7 @@ int emptySpacesMedium(ParkingSpot *spaces) {
 int emptySpacesLarge(ParkingSpot *spaces) {
     int counter = 0;
 
-    for (int i = 0; i<1000; i++) {
+    for (int i = 0; i<PARKING_SPOTS; i++) {
         if (spaces[i].vehicleType == large && spaces[i].isOccupied == false) {
             counter += 1;
         }
@@ -169,3 +171,12 @@ int emptySpacesLarge(ParkingSpot *spaces) {
     return counter;
 }
 
+void shuffleParkingLot(ParkingSpot *spaces)
+{
+    for (int i = PARKING_SPOTS - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        ParkingSpot temp = spaces[i];
+        spaces[i] = spaces[j];
+        spaces[j] = temp;
+    }
+}
