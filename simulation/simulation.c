@@ -114,7 +114,7 @@ void parkAction(int i, char **lpv /*,Buffer*/)
     Vehicle v = GenerateLicensePlateVehicle(lp);
     if (placeCar(spaces, v) != 0)
     {
-        char failStr[100] = "Failed to part car:";
+        char failStr[100] = "Failed to park car:";
         // printVehicleInformation(v);
         customLog(LOG_PATH, "[!]", failStr);
         logPark(i, 0, v.vehicleType, v.isElectric, v.isDisabled, 0, i / (NUMBER_OF_ACTIONS / 17));
@@ -158,6 +158,7 @@ void main()
     clearLogFile(LOG_PATH);
     clearLogFile(CSV_PATH);
     createParkingLot();
+    printf("%d",emptySpacesSmall(spaces));
 
     char path[] = "../src/licensePlates.txt";
     char **licensePlates = NULL;

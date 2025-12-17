@@ -139,7 +139,10 @@ Vehicle registerCar()
 
 void findEmptyParkingSpace(const Vehicle vehicle)
 {   printf("\nParking Your Vehicle");
-    placeCar(spaces, vehicle);
+    if(placeCar(spaces, vehicle)!=0){
+        printf("\nNo available spots");
+        return;
+    }
     addLicensePlate(vehicle.licensePlate);
 }
 Vehicle removeCarFromParking(){
