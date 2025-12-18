@@ -2,56 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include "libconf.h"
-ParkingSpot spaces[PARKING_SPOTS];
 
-void createParkingLot()
+ParkingSpot* createParkingLot()
 {
-
-    // for (int i = 0; i < PARKING_SPOTS; i++)
-    // {
-    //     spaces[i].isOccupied = 0; // alle pladser er tomme i starten
-    // }
-
-    // // Small plads
-    // for (int i = 0; i < 300; i++)
-    // {
-    //     spaces[i].vehicleType = small;
-    //     spaces[i].isElectric = 0;
-    //     spaces[i].isDisable = 0;
-    // }
-
-    // // Medium plads
-    // for (int i = 300; i < 600; i++)
-    // {
-    //     spaces[i].vehicleType = medium;
-    //     spaces[i].isElectric = 0;
-    //     spaces[i].isDisable = 0;
-    // }
-
-    // // Large, EV, Disabled pladser
-    // for (int i = 600; i < PARKING_SPOTS; i++)
-    // {
-    //     spaces[i].vehicleType = large;
-
-    //     if (i >= 940 && i < 989)
-    //     {
-    //         spaces[i].isElectric = 1; // laver et elektrisk plads
-    //         spaces[i].isDisable = 0;
-    //     }
-    //     else if (i >= 989)
-    //     {
-    //         spaces[i].isDisable = 1; // laver et handicap plads
-    //         spaces[i].isElectric = 0;
-    //     }
-    //     else
-    //     {
-    //         spaces[i].isElectric = 0;
-    //         spaces[i].isDisable = 0;
-    //     }
-    // }
-    // give location data
+    ParkingSpot *spaces;
+    int totalSmallSpaces = atoi(getConfigValue("small_spaces"));
+    int totalMediumSpaces = atoi(getConfigValue("medium_spaces"));
+    int totalLargeSpaces = atoi(getConfigValue("large_spaces"));
+    int totalSpaces= totalLargeSpaces+totalMediumSpaces+totalSmallSpaces;
+    spaces = calloc(totalSpaces,sizeof(ParkingSpot));
     int floors = atoi(getConfigValue("floor_count"));
     int sectorsPerFloor = atoi(getConfigValue("sectors_per_floor"));
     int parkingSpotId = 0;
@@ -126,17 +86,19 @@ void createParkingLot()
     }
 
     printf("Parking lot created successfully.\n");
-    // srand((unsigned int)time(NULL)); // Srand gør så det er totalt random numre, hvor p-pladserne bliver sat
-    // shuffleParkingLot(spaces);
+    return spaces;
 }
 
 int findFreeSpot(ParkingSpot *spaces, Vehicle car)
 {
-
+        int totalSmallSpaces = atoi(getConfigValue("small_spaces"));
+    int totalMediumSpaces = atoi(getConfigValue("medium_spaces"));
+    int totalLargeSpaces = atoi(getConfigValue("large_spaces"));
+    int totalSpaces= totalLargeSpaces+totalMediumSpaces+totalSmallSpaces;
     // Første skridt: Handicap biler finder en handicap plads
     if (car.isDisabled)
     {
-        for (int i = 0; i < PARKING_SPOTS; i++)
+        for (int i = 0; i < totalSpaces; i++)
         {
             if (spaces[i].isDisable == 1 &&
                 spaces[i].isOccupied == 0 &&
@@ -150,7 +112,7 @@ int findFreeSpot(ParkingSpot *spaces, Vehicle car)
     // Andet skridt: EV biler finder en EV plads
     if (car.isElectric)
     {
-        for (int i = 0; i < PARKING_SPOTS; i++)
+        for (int i = 0; i < totalSpaces; i++)
         {
             if (spaces[i].isElectric == 1 &&
                 spaces[i].isOccupied == 0 &&
@@ -164,7 +126,7 @@ int findFreeSpot(ParkingSpot *spaces, Vehicle car)
     int freeMediumSpaces = emptySpacesMedium(spaces);
     int freeLargeSpaces = emptySpacesLarge(spaces);
     // tredje skridt: hvad end plads der er ledig
-    for (int i = 0; i < PARKING_SPOTS; i++)
+    for (int i = 0; i < totalSpaces; i++)
     {
 
         // pladsen skal være tom
@@ -242,7 +204,11 @@ char* placeCar(ParkingSpot *spaces, Vehicle car)
 
 ParkingSpot *findCar(ParkingSpot *spaces, char licensePlate[8])
 {
-    for (int i = 0; i < PARKING_SPOTS; i++)
+            int totalSmallSpaces = atoi(getConfigValue("small_spaces"));
+    int totalMediumSpaces = atoi(getConfigValue("medium_spaces"));
+    int totalLargeSpaces = atoi(getConfigValue("large_spaces"));
+    int totalSpaces= totalLargeSpaces+totalMediumSpaces+totalSmallSpaces;
+    for (int i = 0; i < totalSpaces; i++)
     {
         if (strcmp(spaces[i].vehicle.licensePlate, licensePlate) == 0) /*tjekker om nummer pladen er
             på en af pladserne */
@@ -262,10 +228,14 @@ Vehicle removeCar(ParkingSpot *spaces)
 
 int emptySpacesSmall(ParkingSpot *spaces)
 {
+    int totalSmallSpaces = atoi(getConfigValue("small_spaces"));
+    int totalMediumSpaces = atoi(getConfigValue("medium_spaces"));
+    int totalLargeSpaces = atoi(getConfigValue("large_spaces"));
+    int totalSpaces= totalLargeSpaces+totalMediumSpaces+totalSmallSpaces;
 
     int counter = 0;
 
-    for (int i = 0; i < PARKING_SPOTS; i++)
+    for (int i = 0; i < totalSpaces; i++)
     {
         if (spaces[i].vehicleType == small && spaces[i].isOccupied == false)
         {
@@ -277,9 +247,14 @@ int emptySpacesSmall(ParkingSpot *spaces)
 
 int emptySpacesMedium(ParkingSpot *spaces)
 {
+        int totalSmallSpaces = atoi(getConfigValue("small_spaces"));
+    int totalMediumSpaces = atoi(getConfigValue("medium_spaces"));
+    int totalLargeSpaces = atoi(getConfigValue("large_spaces"));
+    int totalSpaces= totalLargeSpaces+totalMediumSpaces+totalSmallSpaces;
+
     int counter = 0;
 
-    for (int i = 0; i < PARKING_SPOTS; i++)
+    for (int i = 0; i < totalSpaces; i++)
     {
         if (spaces[i].vehicleType == medium && spaces[i].isOccupied == false)
         {
@@ -291,9 +266,14 @@ int emptySpacesMedium(ParkingSpot *spaces)
 
 int emptySpacesLarge(ParkingSpot *spaces)
 {
+        int totalSmallSpaces = atoi(getConfigValue("small_spaces"));
+    int totalMediumSpaces = atoi(getConfigValue("medium_spaces"));
+    int totalLargeSpaces = atoi(getConfigValue("large_spaces"));
+    int totalSpaces= totalLargeSpaces+totalMediumSpaces+totalSmallSpaces;
+
     int counter = 0;
 
-    for (int i = 0; i < PARKING_SPOTS; i++)
+    for (int i = 0; i < totalSpaces; i++)
     {
         if (spaces[i].vehicleType == large && spaces[i].isOccupied == false)
         {
@@ -303,13 +283,3 @@ int emptySpacesLarge(ParkingSpot *spaces)
     return counter;
 }
 
-void shuffleParkingLot(ParkingSpot *spaces)
-{
-    for (int i = PARKING_SPOTS - 1; i > 0; i--)
-    {
-        int j = rand() % (i + 1);
-        ParkingSpot temp = spaces[i];
-        spaces[i] = spaces[j];
-        spaces[j] = temp;
-    }
-}
