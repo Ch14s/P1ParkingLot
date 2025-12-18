@@ -9,11 +9,12 @@ typedef struct {
     int isElectric;
     int isDisable;
     int isOccupied;
+    char location[30];
 } ParkingSpot;
 
 extern ParkingSpot spaces[PARKING_SPOTS];
 void createParkingLot();
-int placeCar(ParkingSpot *spaces, Vehicle car);
+char* placeCar(ParkingSpot *spaces, Vehicle car);
 int findFreeSpot(ParkingSpot *spaces, Vehicle car);
 ParkingSpot* findCar(ParkingSpot* spaces, char licensePlate[8]);
 Vehicle removeCar(ParkingSpot *spaces);

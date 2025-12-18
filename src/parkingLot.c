@@ -3,57 +3,131 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "libconf.h"
 ParkingSpot spaces[PARKING_SPOTS];
 
 void createParkingLot()
 {
 
-    for (int i = 0; i < PARKING_SPOTS; i++)
-    {
-        spaces[i].isOccupied = 0; // alle pladser er tomme i starten
-    }
+    // for (int i = 0; i < PARKING_SPOTS; i++)
+    // {
+    //     spaces[i].isOccupied = 0; // alle pladser er tomme i starten
+    // }
 
-    // Small plads
-    for (int i = 0; i < 300; i++)
-    {
-        spaces[i].vehicleType = small;
-        spaces[i].isElectric = 0;
-        spaces[i].isDisable = 0;
-    }
+    // // Small plads
+    // for (int i = 0; i < 300; i++)
+    // {
+    //     spaces[i].vehicleType = small;
+    //     spaces[i].isElectric = 0;
+    //     spaces[i].isDisable = 0;
+    // }
 
-    // Medium plads
-    for (int i = 300; i < 600; i++)
-    {
-        spaces[i].vehicleType = medium;
-        spaces[i].isElectric = 0;
-        spaces[i].isDisable = 0;
-    }
+    // // Medium plads
+    // for (int i = 300; i < 600; i++)
+    // {
+    //     spaces[i].vehicleType = medium;
+    //     spaces[i].isElectric = 0;
+    //     spaces[i].isDisable = 0;
+    // }
 
-    // Large, EV, Disabled pladser
-    for (int i = 600; i < PARKING_SPOTS; i++)
-    {
-        spaces[i].vehicleType = large;
+    // // Large, EV, Disabled pladser
+    // for (int i = 600; i < PARKING_SPOTS; i++)
+    // {
+    //     spaces[i].vehicleType = large;
 
-        if (i >= 940 && i < 989)
+    //     if (i >= 940 && i < 989)
+    //     {
+    //         spaces[i].isElectric = 1; // laver et elektrisk plads
+    //         spaces[i].isDisable = 0;
+    //     }
+    //     else if (i >= 989)
+    //     {
+    //         spaces[i].isDisable = 1; // laver et handicap plads
+    //         spaces[i].isElectric = 0;
+    //     }
+    //     else
+    //     {
+    //         spaces[i].isElectric = 0;
+    //         spaces[i].isDisable = 0;
+    //     }
+    // }
+    // give location data
+    int floors = atoi(getConfigValue("floor_count"));
+    int sectorsPerFloor = atoi(getConfigValue("sectors_per_floor"));
+    int parkingSpotId = 0;
+    for (int i = 1; i <= floors; i++)
+    {
+        char floorSmallSpaceCountSrc[30];
+        char floorMediumSpaceCountSrc[30];
+        char floorLargeSpaceCountSrc[30];
+        char floorElectricSpaceCountSrc[30];
+        char floorDisabledSpaceCountSrc[30];
+        sprintf(floorSmallSpaceCountSrc, "floor%d_spaces_small", i);
+        sprintf(floorMediumSpaceCountSrc, "floor%d_spaces_medium", i);
+        sprintf(floorLargeSpaceCountSrc, "floor%d_spaces_large", i);
+        sprintf(floorElectricSpaceCountSrc, "floor%d_spaces_electric", i);
+        sprintf(floorDisabledSpaceCountSrc, "floor%d_spaces_disabled", i);
+        int floorSmallSpaceCount = atoi(getConfigValue(floorSmallSpaceCountSrc));
+        int floorMediumSpaceCount = atoi(getConfigValue(floorMediumSpaceCountSrc));
+        int floorLargeSpaceCount = atoi(getConfigValue(floorLargeSpaceCountSrc));
+        int floorElectricSpaceCount = atoi(getConfigValue(floorElectricSpaceCountSrc));
+        int floorDisabledSpaceCount = atoi(getConfigValue(floorDisabledSpaceCountSrc));
+        int totalFloorSpaces = floorSmallSpaceCount + floorMediumSpaceCount + floorLargeSpaceCount + floorElectricSpaceCount + floorDisabledSpaceCount;
+        int spacesPerSector = totalFloorSpaces / sectorsPerFloor;
+        for (size_t j = 0; j < totalFloorSpaces; j++)
         {
-            spaces[i].isElectric = 1; // laver et elektrisk plads
-            spaces[i].isDisable = 0;
-        }
-        else if (i >= 989)
-        {
-            spaces[i].isDisable = 1; // laver et handicap plads
-            spaces[i].isElectric = 0;
-        }
-        else
-        {
-            spaces[i].isElectric = 0;
-            spaces[i].isDisable = 0;
+            ParkingSpot parkingSpot;
+            int sector = (j/spacesPerSector);
+            if (j < floorDisabledSpaceCount)
+            {
+                // disabled spot
+                parkingSpot = (ParkingSpot){
+                    .isDisable = 1,
+                    .isElectric = 0,
+                    .isOccupied = 0,
+                    .vehicleType = large};
+            }
+            else if (j < floorElectricSpaceCount + floorDisabledSpaceCount)
+            {
+                parkingSpot = (ParkingSpot){
+                    .isDisable = 0,
+                    .isElectric = 1,
+                    .isOccupied = 0,
+                    .vehicleType = large};
+            }
+            else if (j < floorSmallSpaceCount + floorElectricSpaceCount + floorDisabledSpaceCount)
+            {
+                parkingSpot = (ParkingSpot){
+                    .isDisable = 0,
+                    .isElectric = 0,
+                    .isOccupied = 0,
+                    .vehicleType = small};
+            }
+            else if (j < floorMediumSpaceCount + floorSmallSpaceCount + floorElectricSpaceCount + floorDisabledSpaceCount)
+            {
+                parkingSpot = (ParkingSpot){
+                    .isDisable = 0,
+                    .isElectric = 0,
+                    .isOccupied = 0,
+                    .vehicleType = medium};
+            }
+            else if (j < totalFloorSpaces)
+            {
+                parkingSpot = (ParkingSpot){
+                    .isDisable = 0,
+                    .isElectric = 0,
+                    .isOccupied = 0,
+                    .vehicleType = large};
+            }
+
+            sprintf(parkingSpot.location, "Floor: %d Space: %c%d", i, sector + 'A', j % spacesPerSector + 1);
+            spaces[parkingSpotId++] = parkingSpot;
         }
     }
 
     printf("Parking lot created successfully.\n");
-    srand((unsigned int)time(NULL)); // Srand gør så det er totalt random numre, hvor p-pladserne bliver sat
-    shuffleParkingLot(spaces);
+    // srand((unsigned int)time(NULL)); // Srand gør så det er totalt random numre, hvor p-pladserne bliver sat
+    // shuffleParkingLot(spaces);
 }
 
 int findFreeSpot(ParkingSpot *spaces, Vehicle car)
@@ -114,7 +188,7 @@ int findFreeSpot(ParkingSpot *spaces, Vehicle car)
                 if (freeMediumSpaces == 0)
                 {
                     if (freeLargeSpaces == 0)
-                        return-1;
+                        return -1;
                     if (spaces[i].vehicleType == large)
                         return i;
                 }
@@ -128,7 +202,7 @@ int findFreeSpot(ParkingSpot *spaces, Vehicle car)
             if (freeMediumSpaces == 0)
             {
                 if (freeLargeSpaces == 0)
-                    return-1;
+                    return -1;
                 if (spaces[i].vehicleType == large)
                     return i;
             }
@@ -136,7 +210,8 @@ int findFreeSpot(ParkingSpot *spaces, Vehicle car)
                 return i;
             break;
         case large:
-            if(freeLargeSpaces==0)return-1;
+            if (freeLargeSpaces == 0)
+                return -1;
             if (spaces[i].vehicleType == large)
                 return i;
             break;
@@ -146,7 +221,7 @@ int findFreeSpot(ParkingSpot *spaces, Vehicle car)
     return -1; // ingen plads tilgængelig.
 }
 
-int placeCar(ParkingSpot *spaces, Vehicle car)
+char* placeCar(ParkingSpot *spaces, Vehicle car)
 {
 
     int index = findFreeSpot(spaces, car);
@@ -154,7 +229,7 @@ int placeCar(ParkingSpot *spaces, Vehicle car)
     if (index == -1)
     {
         printf("No suitable parking spot found.\n");
-        return EXIT_FAILURE;
+        return "1";
     }
 
     // sætter bilen ind i pladsen
@@ -162,7 +237,7 @@ int placeCar(ParkingSpot *spaces, Vehicle car)
     spaces[index].isOccupied = 1;
 
     // printf("Car parked at spot %d.\n", index);
-    return EXIT_SUCCESS;
+    return spaces[index].location;
 }
 
 ParkingSpot *findCar(ParkingSpot *spaces, char licensePlate[8])

@@ -11,6 +11,7 @@
 #include "../src/parkingLot.h"
 #include "log.h"
 #include "../src/LicensePlate.h"
+#include "../src/libconf.h"
 // #include "../src/parkingLot.h"
 #include "../src/vehicle.h"
 
@@ -99,7 +100,7 @@ int simulate(int numberOfActions, int *actionArr, char **lpv)
 
             break;
         }
-        // printf("\n%d", i);
+        printf("\n%d", i);
     }
 }
 int validateSimulation()
@@ -112,7 +113,8 @@ void parkAction(int i, char **lpv /*,Buffer*/)
     // add lp to buf
     // spaces[];
     Vehicle v = GenerateLicensePlateVehicle(lp);
-    if (placeCar(spaces, v) != 0)
+    char* location = placeCar(spaces, v);
+    if(strcmp(location,"1") ==0)
     {
         char failStr[100] = "Failed to park car:";
         // printVehicleInformation(v);
@@ -153,6 +155,7 @@ void removeAction(int i /*,Buffer*/)
 }
 void main()
 {
+    initializeConfigFile("../src/parkinglot.conf");
     initLicensePlates();
     srand(time(NULL));
     clearLogFile(LOG_PATH);

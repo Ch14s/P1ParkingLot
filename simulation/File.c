@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <time.h>
 #include "File.h"
-char *read_file(const char *path)
+char *read_fileSim(const char *path)
 {
     FILE *f = fopen(path, "rb");
     if (!f)
@@ -35,7 +35,7 @@ char ** tokensFromFile(const char *path){
     char **tokv = malloc(fileSize);
     int tokc=0;
     // generate actions
-    char *fptr = read_file(path);
+    char *fptr = read_fileSim(path);
     char *tok = strtok(fptr, " ");
     while (tok != NULL && tokc < fileSize - 1)
     {

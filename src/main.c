@@ -5,9 +5,15 @@
 #include "parkingLot.h"
 #include "vehicle.h"
 #include "LicensePlate.h"
+#include "libconf.h"
+
+#define PARKINGLOT_CONFIG_PATH "parkinglot.conf"
 
 int main(int argc, char** argv){
     // Initialize in-memory storage for license plates
+    initializeConfigFile(PARKINGLOT_CONFIG_PATH);
+    printf("%s",getConfigValue("floor_count"));
+
     initLicensePlates();
     createParkingLot();
 
@@ -18,7 +24,7 @@ int main(int argc, char** argv){
         displayMenu(&currentVehicle, &exitFlag);
         printf("\n\n");
     }
-
+    freeConfig();
     // Cleanup allocated license plate memory before exiting
     clearLicensePlates();
     return 0;
