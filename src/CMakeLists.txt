@@ -5,7 +5,7 @@ add_library(parkingLot parkingLot.c
         ../test/test_removeCar.c)
 add_library(vehicle vehicle.c)
 add_library(libconf libconf.c)
-
+configure_file(${CMAKE_SOURCE_DIR}/parkinglot.conf ${CMAKE_BINARY_DIR}/parkinglot.conf COPYONLY)
 add_executable(main main.c
         LicensePlate.c
 )

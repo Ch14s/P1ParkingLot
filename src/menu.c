@@ -158,7 +158,7 @@ Vehicle removeCarFromParking(ParkingSpot* spaces)
     if (parkingSpot ==NULL)
     {
         printf("\nNo car with license plate %s", licensePlate);
-        return;
+        return (Vehicle){};
     }
     
     printf("\nYour car is located at %s", parkingSpot->location);
