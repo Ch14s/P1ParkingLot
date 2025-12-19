@@ -11,8 +11,8 @@
 
 int main(){
     // Initialize in-memory storage for license plates
-    ParkingSpot* spaces = createParkingLot();
     initializeConfigFile(PARKINGLOT_CONFIG_PATH);
+    ParkingSpot* spaces = createParkingLot();
     printf("%s",getConfigValue("floor_count"));
 
     initLicensePlates();
