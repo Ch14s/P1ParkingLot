@@ -2,6 +2,7 @@
 #define LIBCONF_H
 #define CONF_VALUE_LENGTH 50
 #define CONF_KEY_LENGTH 50
+#include <stdlib.h>
 typedef struct _config_i
 {
     char key[CONF_KEY_LENGTH];

@@ -93,15 +93,3 @@ void printVehicleInformation(Vehicle v)
     printf("\nThe vehicle is%s disabled.", d);
     return;
 }
-
-Vehicle *allocateMemoryForVehicle(Vehicle vehicle)
-{
-    Vehicle *vptr = NULL;
-    vptr = (Vehicle *)calloc(1, sizeof(Vehicle));
-    return vptr;
-}
-void deAllocateMemoryForVehicle(Vehicle *vehicle)
-{
-    free(vehicle);
-    return;
-}
