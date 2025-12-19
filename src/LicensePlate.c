@@ -84,6 +84,20 @@ char* removeLicensePlateAt(size_t index) {
 
     return removed;
 }
+bool removeLicensePlate(const char* plate) {
+    ensure_initialized();
+    if (!g_initialized || !plate)return false;
+
+    for (size_t i = 0; i <g_count; ++i) {
+        if (g_plates[i] && strcmp(g_plates[i], plate) == 0) {
+            char* removed = removeLicensePlateAt(i);
+            free(removed);
+            return true;
+        }
+
+    }
+    return false;
+}
 
 void clearLicensePlates(void) {
     if (!g_initialized) return;

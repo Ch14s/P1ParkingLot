@@ -153,8 +153,25 @@ Vehicle removeCarFromParking(ParkingSpot* spaces)
 {
     printf("\nPlease enter your license plate> ");
     char licensePlate[8];
-    scanf("%s", licensePlate);
+
+    scanf("%7s", licensePlate);
+
     ParkingSpot *parkingSpot = findCar(spaces, licensePlate);
+    if (parkingSpot == NULL)
+    {
+        printf("Car with plate '%s' was not found.\n", licensePlate);
+        Vehicle empty = {0};
+        return empty;
+    }
+
     printf("Your car is located at %s", parkingSpot->location);
-    removeCar(parkingSpot);
+
+    Vehicle removedVehicle = removeCar(parkingSpot);
+
+    if (!removeLicensePlate(licensePlate))
+    {
+        printf("\nNote: plate '%s' was not found in stored plate list.\n", licensePlate);
+    }
+    removeLicensePlate(licensePlate);
+    return removedVehicle;
 }
