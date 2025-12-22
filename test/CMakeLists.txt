@@ -9,6 +9,7 @@ function(add_parking_test TEST_NAME TEST_SOURCE)
             parkingLot
             vehicle
             menu
+            libconf
     )
     add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
 endfunction()
@@ -17,7 +18,7 @@ add_parking_test(testCreateParkingLot testCreateParkingLot.c)
 add_parking_test(test_PlaceCar test_PlaceCar.c)
 add_parking_test(test_findFreeSpot test_findFreeSpot.c)
 add_parking_test(test_removeCar test_removeCar.c)
-# add_executable(testGenerateVehicle testGenerateVehicle.c)
+add_parking_test(testGenerateVehicle testGenerateVehicle.c)
 # target_link_libraries(testGenerateVehicle vehicle parkingLot menu)
 
 # add_executable(test2 test.c)
@@ -30,8 +31,8 @@ add_parking_test(test_removeCar test_removeCar.c)
  #      COMMAND testGenerateVehicle)
 
 # --- Test ---
-add_test(NAME test2
-        COMMAND test2)
+# add_test(NAME test2
+#         COMMAND test2)
 
 # add_test(NAME simulation
 #         COMMAND simulation)

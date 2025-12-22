@@ -11,6 +11,7 @@
 #include "../src/parkingLot.h"
 #include "log.h"
 #include "../src/LicensePlate.h"
+#include "../src/libconf.h"
 // #include "../src/parkingLot.h"
 #include "../src/vehicle.h"
 
@@ -27,12 +28,12 @@
 
 int *generateActionsRandomDemand(int numberOfActions, int *actionArr);
 int *generateActionsTimeDemand(int numberOfActions, int *actionArr);
-int simulate(int numberOfActions, int *actionArr, char **lpv);
+int simulate(int numberOfActions, int *actionArr, char **lpv, ParkingSpot* spaces);
 void setupSimulation();
 int validateSimulation();
-void parkAction();
-void removeAction();
-void logPark(int i, int action, VehicleType vehicleType, int isElectric, int isDisabled, int isSuccess, int hour);
+void parkAction(int i, char **lpv, ParkingSpot* spaces);
+void removeAction(int i, ParkingSpot* spaces);
+void logPark(int i, int action, VehicleType vehicleType, int isElectric, int isDisabled, int isSuccess, int hour, ParkingSpot* spaces);
 void setupSimulation()
 {
 }
@@ -82,54 +83,55 @@ int *generateActionsTimeDemand(int numberOfActions, int *actionArr)
     return actionArr;
 }
 
-int simulate(int numberOfActions, int *actionArr, char **lpv)
+int simulate(int numberOfActions, int *actionArr, char **lpv, ParkingSpot* spaces)
 {
     for (int i = 0; i < numberOfActions; i++)
     {
         switch (actionArr[i])
         {
         case 0:
-            parkAction(i, lpv);
+            parkAction(i, lpv, spaces);
             break;
         case 1:
-            removeAction(i);
+            removeAction(i, spaces);
             break;
         default:
-            logPark(i, 2, -1, -1, -1, 1, i / (NUMBER_OF_ACTIONS / 17));
+            logPark(i, 2, -1, -1, -1, 1, i / (NUMBER_OF_ACTIONS / 17),spaces);
 
             break;
         }
-        // printf("\n%d", i);
+        printf("\n%d", i);
     }
 }
 int validateSimulation()
 {
 }
 
-void parkAction(int i, char **lpv /*,Buffer*/)
+void parkAction(int i, char **lpv, ParkingSpot* spaces)
 {
     char *lp = lpv[i];
     // add lp to buf
     // spaces[];
     Vehicle v = GenerateLicensePlateVehicle(lp);
-    if (placeCar(spaces, v) != 0)
+    char* location = placeCar(spaces, v);
+    if(strcmp(location,"1") ==0)
     {
         char failStr[100] = "Failed to park car:";
         // printVehicleInformation(v);
         customLog(LOG_PATH, "[!]", failStr);
-        logPark(i, 0, v.vehicleType, v.isElectric, v.isDisabled, 0, i / (NUMBER_OF_ACTIONS / 17));
+        logPark(i, 0, v.vehicleType, v.isElectric, v.isDisabled, 0, i / (NUMBER_OF_ACTIONS / 17),spaces);
         return;
     }
     addLicensePlate(lp);
     char str1[100] = "Car parked with license plate: ";
     customLog(LOG_PATH, "[=>]", strcat(str1, v.licensePlate));
-    logPark(i, 0, v.vehicleType, v.isElectric, v.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17));
+    logPark(i, 0, v.vehicleType, v.isElectric, v.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17),spaces);
 }
-void removeAction(int i /*,Buffer*/)
+void removeAction(int i , ParkingSpot* spaces)
 {
     if (getLicensePlateCount() == 0)
     {
-        logPark(i, 1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17));
+        logPark(i, 1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17),spaces);
         char str1[100] = "No license plates in the buffer";
         customLog(LOG_PATH, "[NO CARS]", str1);
         return;
@@ -141,23 +143,24 @@ void removeAction(int i /*,Buffer*/)
     if (ps == NULL)
     {
 
-        logPark(i, 1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17));
+        logPark(i, 1, -1, -1, -1, 0, i / (NUMBER_OF_ACTIONS / 17),spaces);
         char str1[100] = "Couldnt find car with given plate ";
         customLog(LOG_PATH, "[N_FOUND]", str1);
         return;
     }
     char str1[100] = "Remove license plate: ";
     customLog(LOG_PATH, "[<=]", strcat(str1, ps->vehicle.licensePlate));
-    logPark(i, 1, ps->vehicle.vehicleType, ps->vehicle.isElectric, ps->vehicle.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17));
+    logPark(i, 1, ps->vehicle.vehicleType, ps->vehicle.isElectric, ps->vehicle.isDisabled, 1, i / (NUMBER_OF_ACTIONS / 17),spaces);
     removeCar(ps);
 }
 void main()
 {
+    initializeConfigFile("../src/parkinglot.conf");
     initLicensePlates();
     srand(time(NULL));
     clearLogFile(LOG_PATH);
     clearLogFile(CSV_PATH);
-    createParkingLot();
+    ParkingSpot* spaces = createParkingLot();
     printf("%d",emptySpacesSmall(spaces));
 
     char path[] = "../src/licensePlates.txt";
@@ -167,13 +170,14 @@ void main()
     actionptr = generateActionsTimeDemand(NUMBER_OF_ACTIONS, actionptr);
     licensePlates = tokensFromFile(path);
     logData(CSV_PATH, "index;action;size;isElectric;isDisabled;isSuccess;hour;smallFreeSpaces;mediumFreeSpaces;largeFreeSpaces\n");
-    simulate(NUMBER_OF_ACTIONS, actionptr, licensePlates);
+    simulate(NUMBER_OF_ACTIONS, actionptr, licensePlates, spaces);
 
     free(licensePlates);
+    free(spaces);
     // generateActions(NUMBER_OF_ACTIONS, actionptr, fptr);
 }
 
-void logPark(int index, int action, VehicleType vehicleType, int isElectric, int isDisabled, int isSuccess, int hour)
+void logPark(int index, int action, VehicleType vehicleType, int isElectric, int isDisabled, int isSuccess, int hour, ParkingSpot* spaces)
 {
 
     char strbuffer[200];

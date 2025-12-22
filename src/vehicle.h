@@ -64,19 +64,4 @@ void printVehicleInformation(Vehicle vehicle);
  * @return Vehicle 
  */
 Vehicle GenerateLicensePlateVehicle(char *licensePlate);
-
-/**
- * @brief Get a pointer for a vehicle
- * 
- * @param vehicle 
- * @return Vehicle* 
- */
-Vehicle* allocateMemoryForVehicle(Vehicle vehicle);
-
-/**
- * @brief Free a vehicle from memory
- * 
- * @param Vehicle to be freed
- */
-void deAllocateMemoryForVehicle(Vehicle* vehicle);
 #endif // VEHICLE
