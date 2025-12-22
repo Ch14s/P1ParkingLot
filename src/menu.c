@@ -153,7 +153,9 @@ Vehicle removeCarFromParking(ParkingSpot* spaces)
 {
     printf("\nPlease enter your license plate> ");
     char licensePlate[8];
-    scanf("%s", licensePlate);
+
+    scanf("%7s", licensePlate);
+
     ParkingSpot *parkingSpot = findCar(spaces, licensePlate);
     if (parkingSpot ==NULL)
     {
