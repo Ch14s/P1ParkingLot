@@ -146,7 +146,7 @@ void findEmptyParkingSpace(const Vehicle vehicle, ParkingSpot* spaces)
         printf("\nNo available spots");
         return;
     }
-    printf("Please park at %s", location);
+    printf("\nPlease park at %s", location);
     addLicensePlate(vehicle.licensePlate);
 }
 Vehicle removeCarFromParking(ParkingSpot* spaces)
@@ -157,21 +157,12 @@ Vehicle removeCarFromParking(ParkingSpot* spaces)
     scanf("%7s", licensePlate);
 
     ParkingSpot *parkingSpot = findCar(spaces, licensePlate);
-    if (parkingSpot == NULL)
+    if (parkingSpot ==NULL)
     {
-        printf("Car with plate '%s' was not found.\n", licensePlate);
-        Vehicle empty = {0};
-        return empty;
+        printf("\nNo car with license plate %s", licensePlate);
+        return (Vehicle){};
     }
-
-    printf("Your car is located at %s", parkingSpot->location);
-
-    Vehicle removedVehicle = removeCar(parkingSpot);
-
-    if (!removeLicensePlate(licensePlate))
-    {
-        printf("\nNote: plate '%s' was not found in stored plate list.\n", licensePlate);
-    }
-    removeLicensePlate(licensePlate);
-    return removedVehicle;
+    
+    printf("\nYour car is located at %s", parkingSpot->location);
+    removeCar(parkingSpot);
 }
